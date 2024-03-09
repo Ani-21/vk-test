@@ -1,13 +1,14 @@
+import "@vkontakte/vkui/dist/vkui.css";
+
 import {
   AppRoot,
   Panel,
   PanelHeader,
   SplitCol,
   SplitLayout,
-  View,
   usePlatform,
+  View,
 } from "@vkontakte/vkui";
-import "@vkontakte/vkui/dist/vkui.css";
 
 type AppProps = {
   children: React.ReactNode;

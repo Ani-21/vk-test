@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { getWordLetterLastIndex } from "../helpers/get-word-letter-last-index";
+
 import { Fact } from "../..";
+import { getWordLetterLastIndex } from "../helpers/get-word-letter-last-index";
 
 const useCaret = (data: Fact | undefined) => {
   useEffect(() => {

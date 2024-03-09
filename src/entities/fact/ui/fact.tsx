@@ -1,4 +1,5 @@
-import { Div, FormItem, Spinner, Textarea } from "@vkontakte/vkui";
+import { FormItem, Spinner, Textarea } from "@vkontakte/vkui";
+
 import useCaret from "../lib/hooks/use-caret";
 import { Fact } from "../model/types/fact-api.types";
 

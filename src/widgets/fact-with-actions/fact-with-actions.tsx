@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { Div } from "@vkontakte/vkui";
 import { Fact } from "src/entities/fact";
 import { FactField } from "src/entities/fact";
 import { GenerateFact } from "src/features/generate-fact";
@@ -17,11 +18,13 @@ const FactWithActions = () => {
   }
 
   return (
-    <FactField
-      data={data}
-      isFetching={isFetching}
-      GenerateFact={<GenerateFact isLoading={isLoading} onRefetch={onRefetchHandler} />}
-    />
+    <Div>
+      <FactField
+        data={data}
+        isFetching={isFetching}
+        GenerateFact={<GenerateFact isLoading={isLoading} onRefetch={onRefetchHandler} />}
+      />
+    </Div>
   );
 };
 

@@ -23,7 +23,7 @@ const App = (props: AppProps) => {
         <SplitCol autoSpaced>
           <View activePanel="main">
             <Panel id="main">
-              <PanelHeader>Randomizer</PanelHeader>
+              <PanelHeader>Bored to tears</PanelHeader>
               {children}
             </Panel>
           </View>

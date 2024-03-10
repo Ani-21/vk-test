@@ -1,4 +1,6 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
+import { Div, Title } from "@vkontakte/vkui";
+import AgeWithActions from "src/widgets/age-with-actions/age-with-actions";
 
 export const Route = createLazyFileRoute("/ages")({
   component: Ages,
@@ -6,8 +8,11 @@ export const Route = createLazyFileRoute("/ages")({
 
 function Ages() {
   return (
-    <div>
-      <h1>Ages</h1>
-    </div>
+    <Div>
+      <Div>
+        <Title>Get your age</Title>
+      </Div>
+      <AgeWithActions />
+    </Div>
   );
 }

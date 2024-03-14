@@ -8,7 +8,7 @@ type FactProps = {
   isFetching: boolean;
   GenerateFact: JSX.Element;
 };
-const Fact = (props: FactProps) => {
+const FactInput = (props: FactProps) => {
   const { data, isFetching, GenerateFact } = props;
   useCaret(data);
 
@@ -25,4 +25,4 @@ const Fact = (props: FactProps) => {
   );
 };
 
-export default Fact;
+export default FactInput;

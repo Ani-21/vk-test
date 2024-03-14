@@ -3,18 +3,15 @@ import { Icon16Clear } from "@vkontakte/icons";
 import { Button, FormItem, IconButton, Input } from "@vkontakte/vkui";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
+import { Age } from "src/entities/age";
 
 import { fetchAgeByName } from "..";
+import { getBottom, getStatus } from "../lib/helpers/form-item.helpers";
 import { useDebounce } from "../lib/hooks/use-debounce/use-debounce";
 import resolver from "../lib/resolver/age-resolver";
 import { AgeFormSchema } from "../model/types/age-schema.types";
 
-type GenerateAgeProps = {
-  onSubmit: (data: AgeFormSchema) => void;
-};
-
-const GenerateAge = (props: GenerateAgeProps) => {
-  const { onSubmit } = props;
+const GenerateAge = () => {
   const mutation = useMutation({ mutationFn: fetchAgeByName });
   const { handleSubmit, control, reset, formState, setValue } = useForm<AgeFormSchema>({
     resolver,
@@ -26,11 +23,16 @@ const GenerateAge = (props: GenerateAgeProps) => {
     e.target.value && debouncedFn(e.target.value).then((res) => console.log(res));
   };
 
+  const onSubmit = (data: AgeFormSchema) => {
+    const { name } = data;
+    mutation.mutate(name);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormItem
-        status={formState.errors.name ? "error" : "default"}
-        bottom={formState.errors.name ? formState.errors.name.message : ""}
+        status={getStatus(formState, mutation)}
+        bottom={mutation.isSuccess ? <Age data={mutation.data} /> : getBottom(formState, mutation)}
       >
         <Controller
           name="name"

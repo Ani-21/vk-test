@@ -1,17 +1,17 @@
-type Response = {
-  count: number;
-  username: string;
-  age: number;
-};
+import { AgeResponse } from "../model/types/age-api.types";
 
 type AgeProps = {
-  data: Response | undefined;
+  data: AgeResponse | undefined;
 };
 
 const Age = (props: AgeProps) => {
   const { data } = props;
 
-  return <h1>{data?.age}</h1>;
+  const message = data?.age
+    ? `You are ${data?.age} y.o.`
+    : "Wow! Your name is so rare, we could not calculate your age...";
+
+  return <p>{message}</p>;
 };
 
 export default Age;

@@ -1,4 +1,4 @@
 # Для запуска приложения в контейнере используйте следующие команды
 
 - docker build -t vk .
-- docker build -t vk .
+- docker run -p 3000:3000 vk

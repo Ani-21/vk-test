@@ -8,6 +8,7 @@ import { fetchAgeByName } from "..";
 import { getBottom, getStatus } from "../lib/helpers/form-item.helpers";
 import { useDebounce } from "../lib/hooks/use-debounce/use-debounce";
 import resolver from "../lib/resolver/age-resolver";
+import { makeUniqueMutation } from "../model/api/make-unique-request";
 import { AgeFormSchema } from "../model/types/age-schema.types";
 
 const GenerateAge = () => {
@@ -16,37 +17,41 @@ const GenerateAge = () => {
     resolver,
   });
   const debouncedFn = useDebounce(mutation.mutate, 3000);
-
   const inputChanged = (field: keyof AgeFormSchema, e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(field, e.target.value);
-    e.target.value && debouncedFn(e.target.value).then((res) => console.log(res));
+    e.target.value && makeUniqueMutation(e.target.value, () => debouncedFn(e.target.value));
   };
 
   const onSubmit = (data: AgeFormSchema) => {
     const { name } = data;
     if (!name) return;
-    mutation.mutate(name);
+    makeUniqueMutation(name, () => mutation.mutateAsync(name));
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormItem
         status={getStatus(formState, mutation)}
-        bottom={mutation.isSuccess ? <Age data={mutation.data} /> : getBottom(formState, mutation)}
+        bottom={getBottom(formState, mutation, <Age data={mutation.data} />)}
       >
         <Controller
           name="name"
           control={control}
-          render={({ field: { name } }) => (
+          render={({ field: { name, ref, onBlur } }) => (
             <Input
+              getRef={ref}
               onChange={(e) => inputChanged(name, e)}
+              onBlur={onBlur}
               status={formState.errors.name ? "error" : "default"}
+              required
             />
           )}
         />
       </FormItem>
       <FormItem>
-        <Button type="submit">Get Age</Button>
+        <Button disabled={mutation.isPending} type="submit">
+          Get Age
+        </Button>
       </FormItem>
     </form>
   );

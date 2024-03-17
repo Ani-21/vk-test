@@ -21,6 +21,7 @@ export const getStatus = (
 export const getBottom = (
   formState: FormState<AgeFormSchema>,
   mutation: UseMutationResult<AgeResponse, Error, string, unknown>,
+  age: JSX.Element,
 ) => {
   if (formState.errors.name) {
     return formState.errors.name.message;
@@ -28,5 +29,9 @@ export const getBottom = (
     return <Spinner />;
   } else if (mutation.isError) {
     return mutation.error.message;
+  } else if (mutation.isSuccess) {
+    return age;
+  } else {
+    return "";
   }
 };

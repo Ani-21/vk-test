@@ -10,4 +10,7 @@ export default defineConfig({
       src: "/src",
     },
   },
+  preview: {
+    port: 3000,
+  },
 });

@@ -4,7 +4,7 @@ function debounce<A = unknown, R = void>(
   fn: (args: A) => R,
   delay: number,
 ): [(args: A) => Promise<R>, () => void] {
-  let timer: number | undefined;
+  let timer: NodeJS.Timeout | undefined;
 
   const debouncedFn = (args: A): Promise<R> =>
     new Promise((resolve) => {
